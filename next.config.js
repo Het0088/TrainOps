@@ -1,8 +1,16 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
+  // Set empty turbopack config to allow custom webpack config to work without error in Next.js 16
+  turbopack: {},
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization.splitChunks = {
